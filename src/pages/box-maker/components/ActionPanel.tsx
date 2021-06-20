@@ -14,6 +14,7 @@ const ToolBoxWrapper = styled(Box)`
 const LogoWrapper = styled(Box)`
   h2 {
     margin: 0;
+    text-align: right;
   }
 `;
 
