@@ -165,8 +165,7 @@ export default function ActionPanel(): JSX.Element {
       {!boxMakerPageData.boxes.length ? (
         <Box padding="0">
           <p>
-            Pick a color from the toolbox and start drawing your boxes on the
-            right board.
+            Pick a color from the toolbox and start drawing your boxes on the board.
           </p>
         </Box>
       ) : null}
