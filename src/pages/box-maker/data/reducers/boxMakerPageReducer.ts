@@ -1,13 +1,12 @@
 import {
   TBoxMakerDataProviderState,
   TDrawOptions,
-  TDrawAction,
+  TDrawMode,
   TBox,
 } from '../../types';
 
 type TBoxMakerPageReducerActionType =
-  | 'SET_DRAW_OPTIONS'
-  | 'SET_DRAW_ACTION'
+  | 'SET_DRAW_MODE'
   | 'SET_DRAW_COLOR'
   | 'ADD_BOX'
   | 'REMOVE_BOX'
@@ -16,7 +15,7 @@ type TBoxMakerPageReducerActionType =
 
 type TBoxMakerPageReducerPayload = {
   drawOptions?: TDrawOptions;
-  drawAction?: TDrawAction;
+  drawMode?: TDrawMode;
   drawColor?: string;
   box?: TBox;
   boxId?: number;
@@ -37,17 +36,12 @@ export default function boxMakerPageReducer(
         ...state,
         isDrawing: !state.isDrawing,
       };
-    case 'SET_DRAW_OPTIONS':
-      return {
-        ...state,
-        drawOptions: action.payload.drawOptions ?? state.drawOptions,
-      };
-    case 'SET_DRAW_ACTION':
+    case 'SET_DRAW_MODE':
       return {
         ...state,
         drawOptions: {
           ...state.drawOptions,
-          action: action.payload.drawAction ?? state.drawOptions.action,
+          mode: action.payload.drawMode ?? state.drawOptions.mode,
         },
       };
     case 'SET_DRAW_COLOR':

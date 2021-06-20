@@ -7,14 +7,14 @@ export type TRectData = {
 
 export type TRectOptions = {
   color?: string;
-  action?: string;
+  mode?: string;
 };
 
-export type TDrawAction = 'DRAW' | 'REMOVE';
+export type TDrawMode = 'DRAW' | 'REMOVE';
 
 export type TDrawOptions = {
   color: string;
-  action: TDrawAction;
+  mode: TDrawMode;
 };
 
 type TCoordinate = {
@@ -22,7 +22,7 @@ type TCoordinate = {
   y: number;
 };
 
-type TBoxLocation = [TCoordinate, TCoordinate];
+export type TBoxLocation = [TCoordinate, TCoordinate];
 
 export type TBox = {
   id: number;

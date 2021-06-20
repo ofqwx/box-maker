@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ofqwx/react-grid": "^0.0.4",
+    "@ofqwx/react-grid": "^0.0.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "e2e-test": "yarn cypress run --headed",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,7 +49,10 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
+    "cypress": "^7.5.0",
+    "cypress-plugin-snapshots": "^1.4.4",
     "eslint": "^7.28.0",
+    "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0"
   }

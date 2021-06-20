@@ -1,6 +1,5 @@
 import { TRectData, TRectOptions } from '../types';
 import { useCallback, useEffect, useRef, MouseEvent } from 'react';
-import { useBoxMakerData } from '.';
 
 export type TCanvasApiState = {
   canvasRef: React.MutableRefObject<HTMLCanvasElement | undefined>;
@@ -13,9 +12,6 @@ export type TCanvasApiState = {
 export default function useCanvasApi(): TCanvasApiState {
   const canvas = useRef<HTMLCanvasElement>();
   const canvasContext = useRef<CanvasRenderingContext2D | null>(null);
-  const {
-    boxMakerPageData: { drawOptions },
-  } = useBoxMakerData();
 
   useEffect(() => {
     if (canvas.current) {
@@ -34,16 +30,17 @@ export default function useCanvasApi(): TCanvasApiState {
       const { x, y, w, h } = data;
 
       const context = canvasContext.current;
-      context.beginPath();
-      context.fillStyle = options?.color || '#000';
-      context.fillRect(x, y, w, h);
-
-      if (options?.action === 'REMOVE') {
-        context.globalAlpha = 0.1;
-        context.fillStyle = '#fff';
-        context.fillRect(x, y, w, h);
-        context.stroke();
+      if (options?.mode === 'REMOVE') {
+        context.globalAlpha = 0.3;
       }
+      context.beginPath();
+      context.rect(x, y, w, h);
+      context.fillStyle = options?.color || '#000';
+      context.fill();
+      context.lineWidth = 1;
+      context.strokeStyle = 'black';
+      context.stroke();
+      context.globalAlpha = 1;
     }
   }, []);
 
@@ -65,14 +62,36 @@ export default function useCanvasApi(): TCanvasApiState {
       const canvasElement = canvas.current;
       const context = canvasContext.current;
 
-      context.clearRect(0, 0, canvasElement.width, canvasElement?.height);
+      context.clearRect(0, 0, canvasElement.width, canvasElement.height);
     }
   }, []);
 
   const clearRect = useCallback(
     (x: number, y: number, w: number, h: number) => {
       if (canvasContext.current) {
-        canvasContext.current.clearRect(x, y, w, h);
+        /* 
+          Since we are also drawing a border we need consider
+          the width of the border when clearing the rect, and this depends
+          on the direction at the user is drawing.
+        */
+
+        // Case of drawing to the top-right direction
+        if (w > 0 && h < 0) {
+          canvasContext.current.clearRect(x - 1, y + 1, w + 2, h - 2);
+        }
+
+        // Case of drawing to the top-left direction
+        if (w < 0 && h < 0) {
+          canvasContext.current.clearRect(x + 1, y + 1, w - 2, h - 2);
+        }
+
+        // Case of drawing to the bottom-left direction
+        if (w < 0 && h > 0) {
+          canvasContext.current.clearRect(x + 1, y - 1, w - 2, h + 2);
+        }
+
+        // Case of drawing to the bottom-right
+        canvasContext.current.clearRect(x - 1, y - 1, w + 2, h + 2);
       }
     },
     []

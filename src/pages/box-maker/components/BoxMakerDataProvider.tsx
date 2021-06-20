@@ -1,12 +1,12 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
-import { TDrawAction, TBoxMakerDataProviderState } from '../types';
+import { TDrawMode, TBoxMakerDataProviderState } from '../types';
 import { boxMakerPageReducer } from '../data';
 
 const initialState = {
   isDrawing: false,
   drawOptions: {
     color: 'red',
-    action: 'DRAW' as TDrawAction,
+    mode: 'DRAW' as TDrawMode,
   },
   boxes: [],
 };
