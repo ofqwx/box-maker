@@ -25,7 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "e2e-test": "yarn cypress run --headed",
+    "e2e-test": "yarn cypress run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
